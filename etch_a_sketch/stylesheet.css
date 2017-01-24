@@ -1,0 +1,27 @@
+body {
+	min-width: 960px;
+}
+
+p {
+	border: 1px solid black;
+	width:960px;
+	width:960px;
+	position:absolute;
+	left:25vw;
+	top:1vw;
+}
+
+input {
+	width: 960px;
+	position:absolute;
+	left:25vw;
+}
+
+.block {
+	float: left;
+	background-color:white;
+}
+
+.hover {
+	background-color:;
+}

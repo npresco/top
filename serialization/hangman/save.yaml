@@ -1,0 +1,4 @@
+--- !ruby/object:Hangman
+secret_word: sickout
+board: s____u_
+guess_count: 3
