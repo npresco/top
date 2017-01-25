@@ -54,12 +54,13 @@ class Pawn < Piece
   def white_move(board, position)
     position_row = position[0]
     position_column = position[1].to_i
-    if position_row == self.position_row.next && !board[GRID[position]]
+    if position_row == self.position_row.next &&
+       position_column == self.position_column && !board[GRID[position]]
       super_move(board, position)
     elsif position_row == self.position_row.next &&
           (position_column == self.position_column - 1 ||
            position_column == self.position_column + 1) &&
-           board[GRID[position]].color &&
+           board[GRID[position]] != nil &&
            board[GRID[position]].color != self.color
       super_move(board, position)
     else

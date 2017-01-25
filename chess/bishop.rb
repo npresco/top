@@ -1,4 +1,5 @@
 class Bishop < Piece
+  attr_reader :unicode
 
   def initialize(color, position)
     super(color, position)
@@ -20,10 +21,11 @@ class Bishop < Piece
     if ((position_row.ord - self.position_row.ord).abs ==
        (position_column - self.position_column).abs) && !board[GRID[position]]
       super(board, position)
-    # elsif # Take piece
-    #        board[GRID[position]].color &&
-    #        board[GRID[position]].color != self.color
-    #   super(board, position)
+    elsif ((position_row.ord - self.position_row.ord).abs ==
+          (position_column - self.position_column).abs) &&
+           board[GRID[position]].color &&
+           board[GRID[position]].color != self.color
+      super(board, position)
     else
       board
     end

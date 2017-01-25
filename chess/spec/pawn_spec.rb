@@ -1,14 +1,24 @@
-require_relative '../chess.rb'
+require_relative "../chess.rb"
 
 RSpec.describe Pawn do
   let(:game) {Game.new}
   let(:board) {game.board_array}
   let(:b1) {board[8]}
 
-  describe '#move' do
-    it 'moves forward one space' do
+  describe "#move" do
+    it "moves forward one space" do
       b1.move(board, "c1")
       expect(board[16].position).to_not eq(nil)
+    end
+
+    it "doesn't move forward more than one space" do
+      b1.move(board, "e1")
+      expect(board[32]).to eq(nil)
+    end
+
+    it "doesn't move backwards" do
+      b1.move(board, "a1")
+      expect(board[0]).to eq(nil)
     end
 
     it "doesn't move forward if a piece is there" do
@@ -17,10 +27,15 @@ RSpec.describe Pawn do
       expect(board[8].position).to_not eq(nil)
     end
 
-    it 'takes the opposite piece diagonally' do
+    it "takes the opposite piece diagonally" do
       board[17] = Pawn.new("black", "c2")
       b1.move(board, "c2")
       expect(board[17].color).to eq("white")
+    end
+
+    it "doesn't move diagonally without taking a piece" do
+      b1.move(board, "c2")
+      expect(board[17]).to eq(nil)
     end
 
     it "doesn't take the same color piece diagonally" do

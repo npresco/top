@@ -165,6 +165,15 @@ class Game
       @board_array[c] = Pawn.new('black', GRID.key(c))
     end
 
+    # Initalize bishops
+    [2,5].each do |c|
+      @board_array[c] = Bishop.new("white", GRID.key(c))
+    end
+
+    [58, 61].each do |c|
+      @board_array[c] = Bishop.new("black", GRID.key(c))
+    end
+
     @board = "
                  ┌───┬───┬───┬───┬───┬───┬───┬───┐
               h  │   │   │   │   │   │   │   │   │
@@ -217,9 +226,6 @@ class Game
           self.board_array = self.player_w.play(self.board_array, piece, move)
           self.update_board
           self.show_board
-          (0..63).each do |x|
-            puts "#{start_board[x]} : #{self.board_array[x]}"
-          end
         end
         turn = "black"
       elsif turn == "black"

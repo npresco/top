@@ -11,9 +11,20 @@ RSpec.describe Bishop do
       expect(board[44]).to_not eq(nil)
     end
 
+    it 'moves diagonally more than one space' do
+      e4.move(board, "h7")
+      expect(board[62].position).to eq("h7")
+    end
+
     it "doesn't move forward" do
-      e4.move(board, "e6")
+      e4.move(board, "f5")
       expect(board[37]).to eq(nil)
+    end
+
+    it "takes an opposite piece diagonally" do
+      board[44] = Bishop.new("black", "f5")
+      e4.move(board, "f5")
+      expect(board[44].color).to eq("white")
     end
   end
 end
