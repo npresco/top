@@ -1,6 +1,7 @@
 require_relative 'player.rb'
 require_relative 'piece.rb'
 require_relative 'pawn.rb'
+require_relative 'bishop.rb'
 
 GRID = {
   "a1" => 0,
@@ -138,12 +139,17 @@ BOARD_POSITIONS =
 }.freeze
 
 class Game
-  attr_accessor :board_array, :board, :player_w, :player_b
+  attr_accessor :board_array, :empty_board, :board, :player_w, :player_b
 
   def initialize
     @board_array = []
     (1..64).each do |c|
       @board_array << nil
+    end
+
+    @empty_board = []
+    (1..64).each do |c|
+      @empty_board << nil
     end
 
     # Initilize Players
@@ -198,28 +204,36 @@ class Game
   end
 
   def play_loop
+    turn = "white"
     while true
-      move = "white"
-      if move == "white"
-        self.show_board
-        puts "White piece: "
-        piece = gets.chomp
-        puts "White move: "
-        move = gets.chomp
-        self.player_w.play(self.board_array, piece, move)
-        self.update_board
-        self.show_board
-        move = "black"
-      elsif move == "black"
-        self.show_board
-        puts "Black piece: "
-        piece = gets.chomp
-        puts "Black move: "
-        move = gets.chomp
-        self.player_w.play(self.board_array, piece, move)
-        self.update_board
-        self.show_board
-        move = "white"
+      start_board = self.board_array.dup
+      if turn == "white"
+        while self.board_array == start_board
+          self.show_board
+          puts "White piece: "
+          piece = gets.chomp
+          puts "White move: "
+          move = gets.chomp
+          self.board_array = self.player_w.play(self.board_array, piece, move)
+          self.update_board
+          self.show_board
+          (0..63).each do |x|
+            puts "#{start_board[x]} : #{self.board_array[x]}"
+          end
+        end
+        turn = "black"
+      elsif turn == "black"
+        while self.board_array == start_board
+          self.show_board
+          puts "Black piece: "
+          piece = gets.chomp
+          puts "Black move: "
+          move = gets.chomp
+          self.board_array = self.player_b.play(self.board_array, piece, move)
+          self.update_board
+          self.show_board
+        end
+        turn = "white"
       end
     end
   end

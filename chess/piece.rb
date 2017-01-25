@@ -24,8 +24,6 @@ class Piece
        board[GRID[old_position]] = nil
        board[GRID[position]] = self
        board
-    else
-      board
     end
   end
 
