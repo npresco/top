@@ -41,10 +41,10 @@ class Piece
     position_row = position[0]
     position_column = position[1]
     column_array = []
-    if position_row > self.position_row.next
+    if position_row > self.position_row
       column_array =
       (self.position_row.next..(position_row.ord - 1).chr).to_a.map {|x| x + position_column}
-    elsif position_row < self.position_row.next
+    elsif position_row < self.position_row
       column_array =
       (position_row.next..(self.position_row.ord - 1).chr).to_a.map {|x| x + position_column}
     end
@@ -55,7 +55,41 @@ class Piece
     column_pieces.any? {|c| c != nil}
   end
 
-  def diagonally_blocked?
+  def diagonally_blocked?(board, position)
+    position_row = position[0]
+    position_column = position[1].to_i
+    diag = (1...(position_column - self.position_column).abs).to_a
+    diag_array = []
+    diag_pieces = []
+    if position_row > self.position_row
+      if position_column > self.position_column
+        diag.each do |c|
+          diag_array <<
+            (self.position_row.ord + c).chr + (self.position_column + c).to_s
+        end
+      elsif position_column < self.position_column
+        diag.each do |c|
+          diag_array <<
+            (self.position_row.ord + c).chr + (self.position_column - c).to_s
+        end
+      end
+    elsif position_row < self.position_row
+      if position_column > self.position_column
+        diag.each do |c|
+          diag_array <<
+            (self.position_row.ord - c).chr + (self.position_column + c).to_s
+        end
+      elsif position_column < self.position_column
+        diag.each do |c|
+          diag_array <<
+            (self.position_row.ord - c).chr + (self.position_column - c).to_s
+        end
+      end
+    end
+    diag_array.each do |c|
+      diag_pieces << board[GRID[c]]
+    end
+    diag_pieces.any? {|c| c != nil}
   end
 
 end

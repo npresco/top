@@ -4,6 +4,8 @@ require_relative "pawn.rb"
 require_relative "bishop.rb"
 require_relative "rook.rb"
 require_relative "knight.rb"
+require_relative "king.rb"
+require_relative "queen.rb"
 
 GRID = {
   "a1" => 0,
@@ -185,6 +187,23 @@ class Game
     [56, 63].each do |c|
       @board_array[c] = Rook.new("black", GRID.key(c))
     end
+
+    # Initialize knights
+    [1, 6].each do |c|
+      @board_array[c] = Knight.new("white", GRID.key(c))
+    end
+
+    [57, 62].each do |c|
+      @board_array[c] = Knight.new("black", GRID.key(c))
+    end
+
+    # Initialize queens
+    @board_array[3] = Queen.new("white", GRID.key(3))
+    @board_array[59] = Queen.new("black", GRID.key(59))
+
+    # Initialize kings
+    @board_array[4] = King.new("white", GRID.key(3))
+    @board_array[60] = King.new("black", GRID.key(59))
 
     @board = "
                  ┌───┬───┬───┬───┬───┬───┬───┬───┐

@@ -19,11 +19,14 @@ class Bishop < Piece
     position_row = position[0]
     position_column = position[1].to_i
     if ((position_row.ord - self.position_row.ord).abs ==
-       (position_column - self.position_column).abs) && !board[GRID[position]]
+       (position_column - self.position_column).abs) &&
+       !self.diagonally_blocked?(board, position) &&
+       !board[GRID[position]]
       super(board, position)
     elsif ((position_row.ord - self.position_row.ord).abs ==
           (position_column - self.position_column).abs) &&
-           board[GRID[position]].color != self.color
+          !self.diagonally_blocked?(board, position) &&
+          board[GRID[position]].color != self.color
       super(board, position)
     else
       board

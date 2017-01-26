@@ -1,0 +1,8 @@
+make movement modules
+-column/row
+-diagonal
+
+-king check/checkmate
+-king castling
+
+-pawn exchange for Queen
