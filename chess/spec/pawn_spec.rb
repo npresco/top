@@ -2,13 +2,24 @@ require_relative "../chess.rb"
 
 RSpec.describe Pawn do
   let(:game) {Game.new}
-  let(:board) {game.board_array}
-  let(:b1) {board[8]}
+  let(:board) {game.empty_board}
+  let(:b1) {board[8] = Pawn.new("white", "b1")}
 
   describe "#move" do
     it "moves forward one space" do
       b1.move(board, "c1")
-      expect(board[16].position).to_not eq(nil)
+      expect(board[16].position).to eq("c1")
+    end
+
+    it "can move two spaces on first move" do
+      b1.move(board, "d1")
+      expect(board[24].position).to eq("d1")
+    end
+
+    it "can't move two spaces on move other than first" do
+      b1.move(board, "c1")
+      board[16].move(board, "e1")
+      expect(board[32]).to eq(nil)
     end
 
     it "doesn't move forward more than one space" do

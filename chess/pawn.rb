@@ -35,6 +35,11 @@ class Pawn < Piece
     position_column = position[1].to_i
     if position_row == (self.position_row.ord - 1).chr && !board[GRID[position]]
       super_move(board, position)
+    elsif self.position_row == "g" &&
+          position_row == "e" &&
+          position_column == self.position_column &&
+          !self.column_blocked?(board, position)
+      super_move(board, position)
     elsif position_row == (self.position_row.ord - 1).chr &&
           (position_column == self.position_column - 1 ||
            position_column == self.position_column + 1) &&
@@ -56,6 +61,11 @@ class Pawn < Piece
     position_column = position[1].to_i
     if position_row == self.position_row.next &&
        position_column == self.position_column && !board[GRID[position]]
+      super_move(board, position)
+    elsif self.position_row == "b" &&
+          position_row == "d"
+          position_column == self.position_column &&
+          !self.column_blocked?(board, position)
       super_move(board, position)
     elsif position_row == self.position_row.next &&
           (position_column == self.position_column - 1 ||

@@ -224,11 +224,11 @@ class Game
 
   def play_loop
     turn = "white"
+    self.show_board
     while true
       start_board = self.board_array.dup
       if turn == "white"
         while self.board_array == start_board
-          self.show_board
           puts "White piece: "
           piece = gets.chomp
           puts "White move: "
@@ -240,7 +240,6 @@ class Game
         turn = "black"
       elsif turn == "black"
         while self.board_array == start_board
-          self.show_board
           puts "Black piece: "
           piece = gets.chomp
           puts "Black move: "
