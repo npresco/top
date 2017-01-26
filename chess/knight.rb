@@ -1,12 +1,14 @@
 class Knight < Piece
+  attr_reader :unicode
 
-  def initialize(position_row = "a", position_column = 1)
-    super(color, position_row, position_column)
+  def initialize(color, position)
+    super(color, position)
     if self.color == "white"
       @unicode = "♘"
     elsif self.color == "black"
       @unicode = "♞"
     end
   end
+
 
 end

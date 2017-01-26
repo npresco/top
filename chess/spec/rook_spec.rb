@@ -39,9 +39,15 @@ RSpec.describe Rook do
     end
 
     it "doesn't move past same pieces in a column" do
-      board[27] = Rook.new("white", "e5")
+      board[27] = Rook.new("white", "d4")
       e4.move(board, "c4")
       expect(board[19]).to eq(nil)
+    end
+
+    it "takes a piece of opposite color" do
+      board[19] = Rook.new("black", "c4")
+      e4.move(board, "c4")
+      expect(board[19].color).to eq("white")
     end
   end
 end

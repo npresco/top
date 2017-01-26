@@ -31,9 +31,9 @@ class Piece
     position_row = position[0]
     position_column = position[1].to_i
     if position_column > self.position_column
-      board[(GRID[self.position] + 1)..GRID[position]].any? {|c| c != nil}
+      board[(GRID[self.position] + 1)..(GRID[position] - 1)].any? {|c| c != nil}
     elsif self.position_column > position_column
-      board[GRID[position]..(GRID[self.position] - 1)].any? {|c| c != nil}
+      board[(GRID[position] + 1)..(GRID[self.position] - 1)].any? {|c| c != nil}
     end
   end
 
@@ -43,10 +43,10 @@ class Piece
     column_array = []
     if position_row > self.position_row.next
       column_array =
-      (self.position_row.next..position_row).to_a.map {|x| x + position_column}
+      (self.position_row.next..(position_row.ord - 1).chr).to_a.map {|x| x + position_column}
     elsif position_row < self.position_row.next
       column_array =
-      (position_row..(self.position_row.ord - 1).chr).to_a.map {|x| x + position_column}
+      (position_row.next..(self.position_row.ord - 1).chr).to_a.map {|x| x + position_column}
     end
     column_pieces = []
     column_array.each do |c|

@@ -3,6 +3,7 @@ require_relative "piece.rb"
 require_relative "pawn.rb"
 require_relative "bishop.rb"
 require_relative "rook.rb"
+require_relative "knight.rb"
 
 GRID = {
   "a1" => 0,
@@ -148,6 +149,7 @@ class Game
       @board_array << nil
     end
 
+    # For testing
     @empty_board = []
     (1..64).each do |c|
       @empty_board << nil
@@ -233,7 +235,7 @@ class Game
           piece = gets.chomp
           puts "White move: "
           move = gets.chomp
-          self.board_array = self.player_w.play(self.board_array, piece, move)
+          self.player_w.play(self.board_array, piece, move)
           self.update_board
           self.show_board
         end
@@ -244,7 +246,7 @@ class Game
           piece = gets.chomp
           puts "Black move: "
           move = gets.chomp
-          self.board_array = self.player_b.play(self.board_array, piece, move)
+          self.player_b.play(self.board_array, piece, move)
           self.update_board
           self.show_board
         end

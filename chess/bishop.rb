@@ -23,7 +23,6 @@ class Bishop < Piece
       super(board, position)
     elsif ((position_row.ord - self.position_row.ord).abs ==
           (position_column - self.position_column).abs) &&
-           board[GRID[position]].color &&
            board[GRID[position]].color != self.color
       super(board, position)
     else

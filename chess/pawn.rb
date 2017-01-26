@@ -43,7 +43,6 @@ class Pawn < Piece
     elsif position_row == (self.position_row.ord - 1).chr &&
           (position_column == self.position_column - 1 ||
            position_column == self.position_column + 1) &&
-           board[GRID[position]].color &&
            board[GRID[position]].color != self.color
       super_move(board, position)
     else
