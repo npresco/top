@@ -1,7 +1,8 @@
-require_relative 'player.rb'
-require_relative 'piece.rb'
-require_relative 'pawn.rb'
-require_relative 'bishop.rb'
+require_relative "player.rb"
+require_relative "piece.rb"
+require_relative "pawn.rb"
+require_relative "bishop.rb"
+require_relative "rook.rb"
 
 GRID = {
   "a1" => 0,
@@ -166,12 +167,21 @@ class Game
     end
 
     # Initalize bishops
-    [2,5].each do |c|
+    [2, 5].each do |c|
       @board_array[c] = Bishop.new("white", GRID.key(c))
     end
 
     [58, 61].each do |c|
       @board_array[c] = Bishop.new("black", GRID.key(c))
+    end
+
+    # Initialize rooks
+    [0, 7].each do |c|
+      @board_array[c] = Rook.new("white", GRID.key(c))
+    end
+
+    [56, 63].each do |c|
+      @board_array[c] = Rook.new("black", GRID.key(c))
     end
 
     @board = "
