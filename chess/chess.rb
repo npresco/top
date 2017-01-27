@@ -202,8 +202,8 @@ class Game
     @board_array[59] = Queen.new("black", GRID.key(59))
 
     # Initialize kings
-    @board_array[4] = King.new("white", GRID.key(3))
-    @board_array[60] = King.new("black", GRID.key(59))
+    @board_array[4] = King.new("white", GRID.key(4))
+    @board_array[60] = King.new("black", GRID.key(60))
 
     @board = "
                  ┌───┬───┬───┬───┬───┬───┬───┬───┐
