@@ -25,7 +25,8 @@ class King < Piece
         position_row == (self.position_row.ord - 1).chr) &&
        position_column == self.position_column &&
        !self.column_blocked?(board, position) &&
-       !board[GRID[position]]) ||
+       !board[GRID[position]]) &&
+       !self.check?(board, position) ||
        (position_row == self.position_row &&
        (position_column == (self.position_column + 1) ||
        position_column == (self.position_column - 1)) &&
@@ -38,7 +39,8 @@ class King < Piece
           position_column == self.position_column &&
           !self.column_blocked?(board, position) &&
           board[GRID[position]] &&
-          board[GRID[position]].color != self.color) ||
+          board[GRID[position]].color != self.color) &&
+          !self.check?(board, position) ||
           (position_row == self.position_row &&
           (position_column == (self.position_column + 1) ||
           position_column == (self.position_column - 1)) &&
@@ -147,6 +149,41 @@ class King < Piece
    end
   end
 
+  # Check if king is in check
+  #
+  # @param {Array} - board
+  # @return {Bool}
+  def checkmate?(board, position)
+    if self.check?(board, position) && self.moves(board, position) == []
+      true
+    else
+      false
+    end
+  end
+
+  def castle(board, position)
+  end
+
+  # Returns array of all legal king locations
+  #
+  # @param {Array} - board
+  # @return {Bool}
+  def moves(board, position)
+    pr = position[0]
+    pc = position[1].to_i
+    m_array = [(pr.ord + 1).chr + pc.to_s,
+             (pr.ord - 1).chr + pc.to_s,
+              pr + (pc - 1).to_s,
+              pr + (pc + 1).to_s,
+             (pr.ord + 1).chr + (pc - 1).to_s,
+             (pr.ord + 1).chr + (pc + 1).to_s,
+             (pr.ord - 1).chr + (pc - 1).to_s,
+             (pr.ord - 1).chr + (pc + 1).to_s]
+    l_array = m_array.sort.reject {|x| GRID[x] == nil }
+    c_array = l_array.reject {|x| board[GRID[x]]}
+    c_array.reject {|x| self.check?(board, x)}
+  end
+
   def row_attacked?(board, position)
    r_attacks = self.create_row(position).map {|x| board[GRID[x]]}
    r_attacks.any? do |x|
@@ -189,8 +226,8 @@ class King < Piece
      p_attacks = [pr.next + (pc.to_i - 1).to_s,
                   pr.next + (pc.to_i + 1).to_s]
    elsif self.color == "black"
-     p_attacks = [(pr.ord - 1).ord + (pc.to_i - 1).to_s,
-                  (pr.ord - 1).ord + (pc.to_i + 1).to_s]
+     p_attacks = [(pr.ord - 1).chr + (pc.to_i - 1).to_s,
+                  (pr.ord - 1).chr + (pc.to_i + 1).to_s]
    end
     p_attacks.reject! {|x| GRID[x] == nil }
     p_attacks.map! {|x| board[GRID[x]]}

@@ -243,34 +243,56 @@ class Game
     puts self.board
   end
 
+  def king_check
+    kings = self.board_array.dup.keep_if {|x| x.kind_of? King}
+    king_in_check = kings.any? {|x| x.check?(self.board_array, x.position)}
+    if king_in_check
+      puts "CHECK!"
+    end
+  end
+
+  def king_checkmate
+    kings = self.board_array.dup.keep_if {|x| x.kind_of? King}
+    king_in_check = kings.any? {|x| x.checkmate?(self.board_array, x.position)}
+    if king_in_check
+      false
+    else
+      true
+    end
+  end
+
+  def console_move(turn)
+    puts "#{turn} piece: "
+    piece = gets.chomp
+    puts "#{turn} move: "
+    move = gets.chomp
+  end
+
   def play_loop
     turn = "white"
     self.show_board
-    while true
+    while self.king_checkmate
       start_board = self.board_array.dup
-      if turn == "white"
+      if turn == "White"
         while self.board_array == start_board
-          puts "White piece: "
-          piece = gets.chomp
-          puts "White move: "
-          move = gets.chomp
+          self.king_check
+          self.console_move(turn)
           self.player_w.play(self.board_array, piece, move)
           self.update_board
           self.show_board
         end
-        turn = "black"
-      elsif turn == "black"
+        turn = "Black"
+      elsif turn == "Black"
         while self.board_array == start_board
-          puts "Black piece: "
-          piece = gets.chomp
-          puts "Black move: "
-          move = gets.chomp
+          self.king_check
+          self.console_move(turn)
           self.player_b.play(self.board_array, piece, move)
           self.update_board
           self.show_board
         end
-        turn = "white"
+        turn = "White"
       end
     end
+    puts "CHECKMATE"
   end
 end

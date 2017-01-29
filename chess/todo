@@ -6,3 +6,8 @@ make movement modules
 -king castling
 
 -pawn exchange for Queen
+
+-error for illegal mov
+-message for check/checkmake
+
+-redo grid! TOTAL REDISIGN!

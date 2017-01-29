@@ -62,8 +62,44 @@ RSpec.describe King do
       expect(board[53]).to eq(nil)
     end
 
-    it "doesn't move if moving into check" do
+    it "doesn't move if moving into check (r)" do
       board[60] = Rook.new("black", "h5")
+      cen_king.move(board, "e5")
+      expect(board[36]).to eq(nil)
+    end
+
+    it "doesn't move if moving into check (c)" do
+      board[47] = Rook.new("black", "f8")
+      cen_king.move(board, "f4")
+      expect(board[43]).to eq(nil)
+    end
+
+    it "doesn't move if moving into check (r)" do
+      board[60] = Queen.new("black", "h5")
+      cen_king.move(board, "e5")
+      expect(board[36]).to eq(nil)
+    end
+
+    it "doesn't move if moving into check (c)" do
+      board[47] = Queen.new("black", "f8")
+      cen_king.move(board, "f4")
+      expect(board[43]).to eq(nil)
+    end
+
+    it "doesn't move if moving into check (du)" do
+      board[61] = Queen.new("black", "h6")
+      cen_king.move(board, "f4")
+      expect(board[43]).to eq(nil)
+    end
+
+    it "doesn't move if moving into check (du)" do
+      board[61] = Bishop.new("black", "h6")
+      cen_king.move(board, "f4")
+      expect(board[43]).to eq(nil)
+    end
+
+    it "doesn't move if moving into check (dr)" do
+      board[63] = Bishop.new("black", "h8")
       cen_king.move(board, "e5")
       expect(board[36]).to eq(nil)
     end
@@ -168,7 +204,7 @@ RSpec.describe King do
     end
   end
 
-  describe "#diagonally_attacked" do
+  describe "#diagonally_attacked?" do
     it "returns true if there are pieces attacking the space" do
       board[53] = Bishop.new("black", "g6")
       expect(cen_king.diagonally_attacked?(board, cen_king.position)).to eq(true)
@@ -176,6 +212,50 @@ RSpec.describe King do
 
     it "returns false if there aren't any pieces attacking the space" do
       expect(cen_king.diagonally_attacked?(board, cen_king.position)).to eq(false)
+    end
+  end
+
+  describe "#pawn_attacked?" do
+    it "returns true if a pawn is attacking" do
+      board[4] = King.new("white", "a5")
+      board[11] = Pawn.new("black", "b4")
+      expect(board[4].pawn_attacked?(board, board[4].position)).to eq(true)
+    end
+
+    it "returns true if a pawn is attacking" do
+      board[60] = King.new("black", "h5")
+      board[51] = Pawn.new("white", "g4")
+      expect(board[60].pawn_attacked?(board, board[60].position)).to eq(true)
+    end
+  end
+
+  describe "#moves" do
+    it "returns array of legal king moves (center)" do
+      expect(cen_king.moves(board, cen_king.position)).to eq(["d3", "d4", "d5", "e3",
+                                                              "e5", "f3", "f4", "f5"])
+    end
+
+    it "returns array of legal king moves (corner)" do
+      expect(cor_king.moves(board, cor_king.position)).to eq(["a2", "b1", "b2"])
+    end
+
+    it "returns array of legal king moves (corner)" do
+      board[1] = Pawn.new("white", "a2")
+      expect(cor_king.moves(board, cor_king.position)).to eq(["b1", "b2"])
+    end
+
+    it "returns array of legal king moves (corner)" do
+      board[57] = Queen.new("black", "h2")
+      expect(cor_king.moves(board, cor_king.position)).to eq(["b1"])
+    end
+
+  end
+
+  describe "#checkmate" do
+    it "returns true if king is in checkmate" do
+      board[56] = Rook.new("black", "h1")
+      board[57] = Rook.new("black", "h2")
+      expect(cor_king.checkmate?(board, cor_king.position)).to eq(true)
     end
   end
 end
