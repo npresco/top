@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <style>
+      <% if message == "Way too high!" ||  message == "Way too low!" %>
+        body {
+          background: red;
+        }
+      <% elsif message == "Too high!" || message == "Too low!" %>
+        body {
+          background: rgba(255, 0, 0, 0.3);
+        }
+      <% elsif message == "You got it right!" %>
+        body {
+          background: green;
+        }
+      <% end %>
+
+    </style>
+
+    <body>
+      <p>
+        <%= message %>
+      </p>
+      <% if message == "You got it right!" %>
+        <p>
+          THE SECRET NUMBER IS <%= number %>
+        </p>
+      <% end %>
+      <% if cheat %>
+        <p>
+          THE SECRET NUMBER IS <%= number %>
+        </p>
+      <% end %>
+
+
+
+      <form>
+        <input type="text" name="guess" />
+        <input type="submit" value="Guess!" />
+      </form>
+    </body>
+  </head>
+</html>
