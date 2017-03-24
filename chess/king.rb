@@ -169,16 +169,16 @@ class King < Piece
   # @param {Array} - board
   # @return {Bool}
   def moves(board, position)
-    pr = position[0]
-    pc = position[1].to_i
+    pr      = position[0]
+    pc      = position[1].to_i
     m_array = [(pr.ord + 1).chr + pc.to_s,
-             (pr.ord - 1).chr + pc.to_s,
-              pr + (pc - 1).to_s,
-              pr + (pc + 1).to_s,
-             (pr.ord + 1).chr + (pc - 1).to_s,
-             (pr.ord + 1).chr + (pc + 1).to_s,
-             (pr.ord - 1).chr + (pc - 1).to_s,
-             (pr.ord - 1).chr + (pc + 1).to_s]
+               (pr.ord - 1).chr + pc.to_s,
+                pr + (pc - 1).to_s,
+                pr + (pc + 1).to_s,
+               (pr.ord + 1).chr + (pc - 1).to_s,
+               (pr.ord + 1).chr + (pc + 1).to_s,
+               (pr.ord - 1).chr + (pc - 1).to_s,
+               (pr.ord - 1).chr + (pc + 1).to_s]
     l_array = m_array.sort.reject {|x| GRID[x] == nil }
     c_array = l_array.reject {|x| board[GRID[x]]}
     c_array.reject {|x| self.check?(board, x)}
