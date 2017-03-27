@@ -1,4 +1,5 @@
 # tracked on separate branch for heroku repo
 /blogger_rails
+/caesar_cipher_reloaded
 
 .DS_Store
