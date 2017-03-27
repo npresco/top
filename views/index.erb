@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body>
+    <% if cipher %>
+      <p><%= cipher %>
+    <% end %>
+    <form method="POST" action="/cipher">
+      <input type="text" name="cipher" />
+      <input type="text" name="rotation" />
+      <input type="submit" value="Cyperize!" />
+    </form>
+  </body>
+</html>
